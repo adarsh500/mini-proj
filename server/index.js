@@ -9,11 +9,9 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 const authRoutes = require('./routes/authRoutes');
-// const router = require('router');
 
 //middleware
 app.use(express.json());
-
 app.use(cors({ origin: '*' }));
 
 //DB connection
@@ -24,15 +22,9 @@ app.use(bodyparser.json());
 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-app.get('/', (req, res) => res.send('hello there'));
-
-// app.get('/api', (req, res) => {
-//   res.json({ message: 'Hello from OBI WAN KENOBI!' });
-// });
-
 //Adding routers
+app.get('/', (req, res) => res.send('hello there'));
 app.use('/', require('./routes/router'));
-
 app.get('/cunt', (req, res) => res.send('mike hunt'));
 app.use(authRoutes);
 

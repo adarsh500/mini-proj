@@ -1,20 +1,18 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-var schema= new mongoose.Schema({
-    id: Number,
-    name : {
-        type: String,
-        required: true
-    },
+var schema = new mongoose.Schema({
+  id: Number,
+  name: {
     type: String,
-    location: String,
-    date: String,
-    adhaar: { type: Number,
-        require: true
-    },
-    address: String
-})
+    required: true,
+  },
+  type: String,
+  location: String,
+  date: String,
+  adhaar: { type: Number, require: true },
+  address: String,
+});
 
-const CrimeDB = mongoose.model("crimedb",schema)
+const CrimeDB = mongoose.model('crimedb', schema);
 
-module.exports = CrimeDB
+module.exports = CrimeDB;

@@ -8,12 +8,13 @@ const getLogin = (req, res) => {
 
 const signup = (req, res) => {
   const { username, password } = req.body;
-
+  console.log(req.body);
   res.send('post signup');
 };
 
 const login = (req, res) => {
   const { username, password } = req.body;
+  console.log(req.body);
   console.log(username, password);
   res.send('post signup');
 };
