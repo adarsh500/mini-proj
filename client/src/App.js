@@ -1,22 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import CriminalTable from './components/CriminalTable';
+import CriminalModal from './components/CriminalModal';
+
+import { Button, Form, Modal } from 'react-bootstrap';
+
 import './App.css';
 
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch('/api')
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+  const [modalShow, setModalShow] = useState(false);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? 'Loading...' : data}</p>
-      </header>
+      <h1>THIS IS CRIMINAL LIST</h1>
+      <CriminalTable />
+
+      <Button onClick={() => setModalShow(true)}>Add criminal</Button>
+      <CriminalModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 }
