@@ -55,7 +55,7 @@ exports.createfir = (req,res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error while creating criminal record"
+            message: err.message || "Some error while creating FIR record"
         })
     })
 }
@@ -85,7 +85,7 @@ exports.createcrime = (req,res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error while creating criminal record"
+            message: err.message || "Some error while creating CRIME record"
         })
     })
 }
@@ -113,7 +113,56 @@ exports.createvictim = (req,res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error while creating criminal record"
+            message: err.message || "Some error while creating VICTIM record"
+        })
+    })
+}
+
+//get all firs
+exports.findAllFirs = (req,res) => {
+    FirDB.find()
+    .then(data => {
+        res.send(data)
+    })
+    .catch(err=>{
+        res.status(500).send({
+            message: err.message || "Error occured while retrieving fir data"
+        })
+    })
+}
+//get all criminals
+exports.findAllcriminals = (req,res) => {
+    CriminalDB.find()
+    .then(data => {
+        res.send(data)
+    })
+    .catch(err=>{
+        res.status(500).send({
+            message: err.message || "Error occured while retrieving fir data"
+        })
+    })
+}
+//get all Crime record
+exports.findAllCrime = (req,res) => {
+    CrimeDB.find()
+    .then(data => {
+        res.send(data)
+    })
+    .catch(err=>{
+        res.status(500).send({
+            message: err.message || "Error occured while retrieving fir data"
+        })
+    })
+}
+//get all Victim record
+exports.findAllVictim = (req,res) => {
+    VictimDB.find()
+    .then(data => {
+        res.send(data)
+    })
+    .catch(err=>{
+        res.status(500).send({
+            message: err.message || "Error occured while retrieving fir data"
         })
     })
 }

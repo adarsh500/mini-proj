@@ -10,4 +10,10 @@ route.post('/api/crime', controller.createcrime)
 route.post('/api/fir', controller.createfir)
 route.post('/api/victim', controller.createvictim)
 
+route.get('/api/fir', controller.findAllFirs)
+route.get('/api/crime', controller.findAllCrime)
+route.get('/api/criminal', controller.findAllcriminals)
+route.get('/api/victim', controller.findAllVictim)
+
+
 module.exports = route
