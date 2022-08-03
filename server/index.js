@@ -25,7 +25,9 @@ app.use(bodyparser.json());
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 //Adding routers
-app.get('/', (req, res) => res.send('hello there'));
+app.get('/', (req, res) => {
+  res.send('hello there');
+});
 app.use('/', require('./routes/router'));
 app.get('/cunt', (req, res) => res.send('mike hunt'));
 app.use(authRoutes);
@@ -33,18 +35,6 @@ app.use(authRoutes);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 // });
-
-app.get('/set-cookies', (req, res) => {
-  //eg seting a new cookie
-  res.cookie('newUser', false);
-  res.cookie('lakjs', true, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true });
-  res.send('you got it');
-});
-
-app.get('/get-cookies', (req, res) => {
-  const cookies = req.cookies;
-  res.json(cookies);
-});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

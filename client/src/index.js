@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import App from './App';
@@ -12,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
+  <CookiesProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
@@ -19,6 +22,7 @@ root.render(
         <Route path="signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
+  </CookiesProvider>
   // </React.StrictMode>
 );
 
