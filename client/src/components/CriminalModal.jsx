@@ -13,7 +13,7 @@ const CriminalModal = (props) => {
     console.log('wroking');
     e.preventDefault();
     try {
-      const req = fetch('http://localhost:3001/api/criminal', {
+      const req = await fetch('http://localhost:3001/api/criminal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -118,7 +118,10 @@ const CriminalModal = (props) => {
         <Button
           variant="primary"
           type="submit"
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => {
+            props.onHide();
+            handleSubmit(e);
+          }}
         >
           Submit
         </Button>
