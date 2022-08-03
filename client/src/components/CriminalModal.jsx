@@ -118,7 +118,10 @@ const CriminalModal = (props) => {
         <Button
           variant="primary"
           type="submit"
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => {
+            props.onHide();
+            handleSubmit(e);
+          }}
         >
           Submit
         </Button>
