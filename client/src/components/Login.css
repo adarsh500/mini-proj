@@ -12,3 +12,8 @@
   font-weight: 500;
   margin-bottom: 40px;
 }
+
+.errorMessage {
+  margin-top: 8px;
+  color: red;
+}

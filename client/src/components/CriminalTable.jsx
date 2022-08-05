@@ -5,7 +5,7 @@ const CriminalTable = () => {
   const [criminal, setCriminal] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/criminal')
+    fetch('/api/criminal')
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Form, Button } from 'react-bootstrap';
 import { useCookies } from 'react-cookie';
@@ -9,15 +10,16 @@ const Signup = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [cookies, setCookie] = useCookies();
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
 
-  console.log('cook', cookies);
-
-  console.log(email, password);
+  // console.log('cook', cookies);
 
   const createUser = async (e) => {
     e.preventDefault();
     try {
-      const req = await fetch('http://localhost:3001/signup', {
+      const res = await fetch('/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -26,18 +28,34 @@ const Signup = () => {
         }),
       });
       //   console.log(req.cookie);
-      const data = await req;
+      const data = await res.json();
       console.log(data);
-      const status = await req.status;
+
+      if (data?.error) {
+        const { email: emailResponse, password: passwordResponse } =
+          data?.error;
+        setEmailError(emailResponse);
+        setPasswordError(passwordResponse);
+      }
+
+      //redirect to homepage on successful signup
+      if (data?.user) {
+        navigate('/');
+      }
+
+      const status = await res.status;
       console.log(status);
-      if (status === 200) {
+      if (status === 201) {
         console.log('user create success');
       } else {
         console.log('cant create user');
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
+  console.log(emailError, passwordError);
   return (
     <div className="login">
       <p className="title">Signup</p>
@@ -49,6 +67,7 @@ const Signup = () => {
             placeholder="Enter email"
             onChange={(e) => setEmail(e.target.value)}
           />
+          <p className="errorMessage">{emailError}</p>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -58,6 +77,7 @@ const Signup = () => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <p className="errorMessage">{passwordError}</p>
         </Form.Group>
         <Button variant="primary" type="submit" onClick={(e) => createUser(e)}>
           Submit
