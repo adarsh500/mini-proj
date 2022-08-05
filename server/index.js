@@ -21,7 +21,6 @@ connectDB();
 
 //parse requests to body parser
 app.use(bodyparser.json());
-
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 //Adding routers
@@ -32,7 +31,9 @@ app.use('/', require('./routes/router'));
 app.get('/cunt', (req, res) => res.send('mike hunt'));
 app.use(authRoutes);
 
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
+  console.log('path is', __dirname);
+  // res.sendFile(path.join(__dirname, 'build', 'index.html'));
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
