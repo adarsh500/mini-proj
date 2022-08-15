@@ -1,4 +1,4 @@
-const jwt = require('jwt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const requireAuth = (req, res, next) => {
@@ -19,28 +19,31 @@ const requireAuth = (req, res, next) => {
   }
 };
 
-const checkUser = (req, res, next) => {
-  const token = req.cookies.jwt;
+// const checkUser = (req, res, next) => {
+//   const token = req.cookies.jwt;
 
-  if (token) {
-    jwt.verify(token, 'secret', (err, decodedToken) => {
-      if (err) {
-        console.log(err.message);
-        res.locals.user = null;
-        next();
-      } else {
-        //decodedToken gives us the id that we used to create the token
-        //check createToken function in authController.js
-        console.log(decodedToken);
-        const user = User.findById(decodedToken.id);
-        res.locals.user = user;
-        next();
-      }
-    });
-  } else {
-    res.locals.user = user;
-    next();
-  }
+//   if (token) {
+//     jwt.verify(token, 'secret', (err, decodedToken) => {
+//       if (err) {
+//         console.log(err.message);
+//         res.locals.user = null;
+//         next();
+//       } else {
+//         //decodedToken gives us the id that we used to create the token
+//         //check createToken function in authController.js
+//         console.log(decodedToken);
+//         const user = User.findById(decodedToken.id);
+//         res.locals.user = user;
+//         next();
+//       }
+//     });
+//   } else {
+//     res.locals.user = user;
+//     next();
+//   }
+// };
+
+module.exports = {
+  requireAuth,
+  // checkUser
 };
-
-module.exports = { requireAuth, checkUser };

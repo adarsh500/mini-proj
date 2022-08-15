@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 const authRoutes = require('./routes/authRoutes');
-const { checkUser } = require('./middleware/authMiddleware');
+// const { checkUser } = require('./middleware/authMiddleware');
 
 //middleware
 app.use(express.json());
@@ -25,7 +25,7 @@ app.use(bodyparser.json());
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 //Adding routers
-app.get('*', checkUser);
+// app.get('*', checkUser);
 app.get('/', (req, res) => {
   res.send('hello there');
 });

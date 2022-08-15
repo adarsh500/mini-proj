@@ -26,7 +26,7 @@ const handleError = (err) => {
   return errors;
 };
 
-// const maxAge = 3 * 24 * 60 * 60;
+const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
   return jwt.sign({ id }, 'secret', {
     expiresIn: '3d',
@@ -40,7 +40,7 @@ const signup = async (req, res) => {
     const user = await User.create({ email, password });
     const token = createToken(user._id);
     res.cookie('jwt', token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: maxAge * 1000,
       path: '/',
     });
@@ -59,7 +59,7 @@ const login = async (req, res) => {
     const user = await User.login(email, password);
     const token = createToken(user._id);
     res.cookie('jwt', token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: maxAge * 1000,
       path: '/',
     });
@@ -74,7 +74,7 @@ const login = async (req, res) => {
 
 const logout = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
-  res.redirect('/');
+  res.redirect('/logina');
 };
 
 module.exports = {
