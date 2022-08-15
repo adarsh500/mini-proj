@@ -4,4 +4,9 @@
 
 .wrapper {
   margin: 32px 96px;
+  margin-top: 0;
+}
+
+.addCriminal {
+  margin-bottom: 20px;
 }

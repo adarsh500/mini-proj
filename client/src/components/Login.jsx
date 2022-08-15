@@ -35,7 +35,7 @@ const Login = () => {
 
       //redirect to homepage on successful signup
       if (data?.user) {
-        navigate('/');
+        navigate('/home');
       }
 
       const status = await res.status;
