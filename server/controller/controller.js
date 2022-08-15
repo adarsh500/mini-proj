@@ -166,3 +166,25 @@ exports.findAllVictim = (req,res) => {
         })
     })
 }
+
+//get fir with fir id
+exports.findFirId = async (req,res) => {
+    try{
+
+        const fir = await FirDB.find({id: req.params.id })
+        const crime = await CrimeDB.find({id: req.params.id })
+        const criminal = await CriminalDB.find({id: req.params.id })
+        const vitcim = await VictimDB.find({id: req.params.id })
+        res.status(201).json({
+            "fir": fir,
+            "crime": crime,
+            "criminal": criminal,
+            "victim": vitcim
+        })
+    }
+    catch(err){
+        res.status(500).send({
+            message: err.message || "Error occured while retrieving fir id data"
+        })
+    }
+}
