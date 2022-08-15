@@ -26,10 +26,10 @@ const handleError = (err) => {
   return errors;
 };
 
-const maxAge = 3 * 24 * 60 * 60;
+// const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
   return jwt.sign({ id }, 'secret', {
-    expiresIn: maxAge,
+    expiresIn: '3d',
   });
 };
 
@@ -40,7 +40,7 @@ const signup = async (req, res) => {
     const user = await User.create({ email, password });
     const token = createToken(user._id);
     res.cookie('jwt', token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: maxAge * 1000,
       path: '/',
     });
@@ -59,14 +59,14 @@ const login = async (req, res) => {
     const user = await User.login(email, password);
     const token = createToken(user._id);
     res.cookie('jwt', token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: maxAge * 1000,
       path: '/',
     });
     console.log('login user', user);
     res.status(201).json({ user: user._id });
   } catch (err) {
-    // console.log('loginerr', err.message);
+    // console.log('loginErr', err.message);
     const error = handleError(err);
     res.status(400).json({ error });
   }
