@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
 const CriminalModal = (props) => {
-  const { id } = props;
   const [name, setName] = useState('');
-  // const [id, setId] = useState();
+  const [id, setId] = useState();
   const [aadhar, setAadhar] = useState();
   const [email, setEmail] = useState();
   const [address, setAddress] = useState();
@@ -56,7 +55,11 @@ const CriminalModal = (props) => {
             label="Criminal ID"
             className="mb-3"
           >
-            <Form.Control type="text" placeholder="ID" value={id} readOnly />
+            <Form.Control
+              type="text"
+              placeholder="ID"
+              onChange={(e) => setId(e.target.value)}
+            />
           </FloatingLabel>
 
           <FloatingLabel

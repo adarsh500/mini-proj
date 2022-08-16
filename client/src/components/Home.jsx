@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import FirTable from './FirTable';
-import FirModal from './FirModal';
+import CriminalTable from './CriminalTable';
+import CriminalModal from './CriminalModal';
 
 import { useCookies } from 'react-cookie';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
@@ -20,7 +20,7 @@ function Home() {
     <div className="home">
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="/home">Crime Records</Navbar.Brand>
+          <Navbar.Brand href="/">Crime Records</Navbar.Brand>
           <Nav className="me-auto">
             {!cookies.jwt ? (
               <>
@@ -41,14 +41,17 @@ function Home() {
               margin: '20px',
             }}
           >
-            THIS IS FIR LIST
+            THIS IS CRIMINAL LIST
           </h1>
           <div className="wrapper">
             <Button className="addCriminal" onClick={() => setModalShow(true)}>
-              Add FIR
+              Add criminal
             </Button>
-            <FirTable />
-            <FirModal show={modalShow} onHide={() => setModalShow(false)} />
+            <CriminalTable />
+            <CriminalModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            />
           </div>
         </>
       ) : (
