@@ -2,10 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
-const CriminalModal = (props) => {
+const VictimModal = (props) => {
   const { id } = props;
   const [name, setName] = useState('');
-  // const [id, setId] = useState();
   const [aadhar, setAadhar] = useState();
   const [email, setEmail] = useState();
   const [address, setAddress] = useState();
@@ -14,7 +13,7 @@ const CriminalModal = (props) => {
     console.log('wroking');
     e.preventDefault();
     try {
-      const req = await fetch('api/criminal', {
+      const req = await fetch('api/victim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -53,7 +52,7 @@ const CriminalModal = (props) => {
         <Form onSubmit={handleSubmit}>
           <FloatingLabel
             controlId="floatingInput"
-            label="Criminal ID"
+            label="Victim ID"
             className="mb-3"
           >
             <Form.Control type="text" placeholder="ID" value={id} readOnly />
@@ -61,7 +60,7 @@ const CriminalModal = (props) => {
 
           <FloatingLabel
             controlId="floatingInput"
-            label="Criminal Name"
+            label="Victim Name"
             className="mb-3"
           >
             <Form.Control
@@ -73,7 +72,7 @@ const CriminalModal = (props) => {
 
           <FloatingLabel
             controlId="floatingInput"
-            label="Aadhar Number"
+            label="Victim Aadhar Number"
             className="mb-3"
           >
             <Form.Control
@@ -127,4 +126,4 @@ const CriminalModal = (props) => {
   );
 };
 
-export default CriminalModal;
+export default VictimModal;

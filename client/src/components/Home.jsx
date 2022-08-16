@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CriminalTable from './CriminalTable';
+import FirTable from './FirTable';
 import FirModal from './FirModal';
 
 import { useCookies } from 'react-cookie';
@@ -20,7 +20,7 @@ function Home() {
     <div className="home">
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="/">Crime Records</Navbar.Brand>
+          <Navbar.Brand href="/home">Crime Records</Navbar.Brand>
           <Nav className="me-auto">
             {!cookies.jwt ? (
               <>
@@ -47,7 +47,7 @@ function Home() {
             <Button className="addCriminal" onClick={() => setModalShow(true)}>
               Add FIR
             </Button>
-            <CriminalTable />
+            <FirTable />
             <FirModal show={modalShow} onHide={() => setModalShow(false)} />
           </div>
         </>
