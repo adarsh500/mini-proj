@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
+
+import { Link } from 'react-router-dom';
 import { Button, Table, Form, Modal } from 'react-bootstrap';
 
 const CriminalTable = () => {
-  const [criminal, setCriminal] = useState([]);
+  const [fir, setFir] = useState([]);
 
   useEffect(() => {
-    fetch('/api/criminal')
+    fetch('/api/fir')
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setCriminal(data);
+        setFir(data);
       });
   }, []);
 
@@ -18,20 +20,20 @@ const CriminalTable = () => {
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>aadhar</th>
-          <th>email</th>
-          <th>address</th>
+          <th>Description</th>
+          <th>Type</th>
         </tr>
       </thead>
       <tbody>
-        {criminal.map((crim, index) => (
+        {fir.map((f, index) => (
           <tr key={index}>
-            <td>{crim.id}</td>
-            <td>{crim.name}</td>
-            <td>{crim.adhaar}</td>
-            <td>{crim.email}</td>
-            <td>{crim.address}</td>
+            <td>
+              <Link to={`/${f.id}`} key={f.id}>
+                {f.id}
+              </Link>
+            </td>
+            <td>{f.description}</td>
+            <td>{f.type}</td>
           </tr>
         ))}
       </tbody>
