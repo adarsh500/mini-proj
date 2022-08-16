@@ -1,29 +1,37 @@
 import React, { useState, useEffect } from 'react';
-
-import { Link } from 'react-router-dom';
 import { Button, Table, Form, Modal } from 'react-bootstrap';
 
-const CriminalTable = (props) => {
-  console.log('this is props', props.criminal);
+const CriminalTable = () => {
+  const [criminal, setCriminal] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/criminal')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setCriminal(data);
+      });
+  }, []);
+
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>Address</th>
-          <th>Adhaar</th>
-          <th>Email</th>
+          <th>aadhar</th>
+          <th>email</th>
+          <th>address</th>
         </tr>
       </thead>
       <tbody>
-        {props?.criminal?.map(({ index, id, address, adhaar, name, email }) => (
+        {criminal.map((crim, index) => (
           <tr key={index}>
-            <td>{id}</td>
-            <td>{name}</td>
-            <td>{address}</td>
-            <td>{adhaar}</td>
-            <td>{email}</td>
+            <td>{crim.id}</td>
+            <td>{crim.name}</td>
+            <td>{crim.adhaar}</td>
+            <td>{crim.email}</td>
+            <td>{crim.address}</td>
           </tr>
         ))}
       </tbody>
