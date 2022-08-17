@@ -20,7 +20,7 @@ function Home() {
     <div className="home">
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="/">Crime Records</Navbar.Brand>
+          <Navbar.Brand href="/home">Crime Records</Navbar.Brand>
           <Nav className="me-auto">
             {!cookies.jwt ? (
               <>
