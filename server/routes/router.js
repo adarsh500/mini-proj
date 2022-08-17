@@ -14,7 +14,7 @@ route.get('/api/crime', controller.findAllCrime)
 route.get('/api/criminal', controller.findAllcriminals)
 route.get('/api/victim', controller.findAllVictim)
 
-// route.get('/api/fir/:id', controller.findFirId)
+route.get('/api/fir/:id', controller.findFirId)
 
 
 module.exports = route;

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+  cid:{
+    type: Number,
+    required: true,
+  },
   id: Number,
   name: {
     type: String,
