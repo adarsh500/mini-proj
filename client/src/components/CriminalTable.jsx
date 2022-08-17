@@ -17,9 +17,10 @@ const CriminalTable = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props?.criminal?.map(({ index, id, address, adhaar, name, email }) => (
-          <tr key={index}>
+        {props?.criminal?.map(({ id, cid, address, adhaar, name, email }) => (
+          <tr key={cid}>
             <td>{id}</td>
+            <td>{cid}</td>
             <td>{name}</td>
             <td>{address}</td>
             <td>{adhaar}</td>

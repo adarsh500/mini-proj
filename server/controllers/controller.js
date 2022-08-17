@@ -13,6 +13,7 @@ exports.createcriminal = (req, res) => {
 
   //new criminal
   const criminal = new CriminalDB({
+    cid: req.body.cid,
     id: req.body.id,
     name: req.body.name,
     email: req.body.email,
@@ -96,6 +97,7 @@ exports.createvictim = (req, res) => {
   }
 
   const victim = new VictimDB({
+    vid: req.body.vid,
     id: req.body.id,
     name: req.body.name,
     email: req.body.email,
