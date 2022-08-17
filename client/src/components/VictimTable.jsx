@@ -10,6 +10,7 @@ const VictimTable = (props) => {
       <thead>
         <tr>
           <th>#</th>
+          <th>vid</th>
           <th>Name</th>
           <th>Address</th>
           <th>Adhaar</th>
@@ -18,7 +19,7 @@ const VictimTable = (props) => {
       </thead>
       <tbody>
         {props?.victim?.map(({ id, vid, address, adhaar, name, email }) => (
-          <tr key={id}>
+          <tr key={vid}>
             <td>{id}</td>
             <td>{vid}</td>
             <td>{name}</td>

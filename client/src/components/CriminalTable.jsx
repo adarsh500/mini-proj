@@ -10,6 +10,7 @@ const CriminalTable = (props) => {
       <thead>
         <tr>
           <th>#</th>
+          <th>cid</th>
           <th>Name</th>
           <th>Address</th>
           <th>Adhaar</th>
