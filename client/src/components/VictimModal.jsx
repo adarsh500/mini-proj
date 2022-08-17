@@ -4,6 +4,7 @@ import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
 const VictimModal = (props) => {
   const { id } = props;
+  const [vid, setVid] = useState();
   const [name, setName] = useState('');
   const [aadhar, setAadhar] = useState();
   const [email, setEmail] = useState();
@@ -18,6 +19,7 @@ const VictimModal = (props) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: id,
+          vid: vid,
           name: name,
           email: email,
           adhaar: aadhar,
@@ -56,6 +58,14 @@ const VictimModal = (props) => {
             className="mb-3"
           >
             <Form.Control type="text" placeholder="ID" value={id} readOnly />
+          </FloatingLabel>
+
+          <FloatingLabel controlId="floatingInput" label="VID" className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder=""
+              onChange={(e) => setVid(e.target.value)}
+            />
           </FloatingLabel>
 
           <FloatingLabel
