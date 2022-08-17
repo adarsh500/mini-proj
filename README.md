@@ -1,5 +1,5 @@
 # mini-proj
-this a simple Crime Records Management System
+this is a simple Crime Records Management System.
 The Project helps the police to keep the record of criminals who have committed crime. 
 This will help the police department in enhanced management of information.
 This system is made to keep the records about the prisoners and about the crimes. 
