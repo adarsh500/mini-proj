@@ -3,12 +3,20 @@ import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
 const CriminalModal = (props) => {
-  const { id } = props;
-  const [name, setName] = useState('');
-  const [cid, setCid] = useState();
-  const [aadhar, setAadhar] = useState();
-  const [email, setEmail] = useState();
-  const [address, setAddress] = useState();
+  const {
+    id,
+    edit,
+    name: editName,
+    email: editEmail,
+    address: editAddress,
+    adhaar: editAadhar,
+    cid: editCid,
+  } = props;
+  const [cid, setCid] = useState(editCid || '');
+  const [name, setName] = useState(editName || '');
+  const [aadhar, setAadhar] = useState(editAadhar || '');
+  const [address, setAddress] = useState(editAddress || '');
+  const [email, setEmail] = useState(editEmail || '');
 
   const handleSubmit = async (e) => {
     console.log('wroking');
@@ -38,6 +46,34 @@ const CriminalModal = (props) => {
     }
   };
 
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const req = await fetch(`api/criminal/${props.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: id,
+          cid: cid,
+          name: name,
+          email: email,
+          adhaar: aadhar,
+          address: address,
+        }),
+      });
+      const status = req.status;
+      console.log(status);
+      if (status === 200) {
+        console.log('edit success');
+      } else {
+        console.log('edit unsuccess');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Modal
       {...props}
@@ -54,7 +90,7 @@ const CriminalModal = (props) => {
         <Form onSubmit={handleSubmit}>
           <FloatingLabel
             controlId="floatingInput"
-            label="Criminal ID"
+            label="FIR ID"
             className="mb-3"
           >
             <Form.Control type="text" placeholder="ID" value={id} readOnly />
@@ -65,6 +101,7 @@ const CriminalModal = (props) => {
               type="text"
               placeholder=""
               onChange={(e) => setCid(e.target.value)}
+              value={cid}
             />
           </FloatingLabel>
 
@@ -77,6 +114,7 @@ const CriminalModal = (props) => {
               type="text"
               placeholder="firstname lastname"
               onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </FloatingLabel>
 
@@ -89,6 +127,7 @@ const CriminalModal = (props) => {
               type="text"
               placeholder="XXXX XXXX XXXX"
               onChange={(e) => setAadhar(e.target.value)}
+              value={aadhar}
             />
           </FloatingLabel>
 
@@ -101,6 +140,7 @@ const CriminalModal = (props) => {
               type="email"
               placeholder="email@domain.com"
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </FloatingLabel>
 
@@ -113,6 +153,7 @@ const CriminalModal = (props) => {
               type="text"
               placeholder="Address"
               onChange={(e) => setAddress(e.target.value)}
+              value={address}
             />
           </FloatingLabel>
         </Form>
@@ -126,7 +167,7 @@ const CriminalModal = (props) => {
           type="submit"
           onClick={(e) => {
             props.onHide();
-            handleSubmit(e);
+            edit ? handleEdit(e) : handleSubmit(e);
           }}
         >
           Submit
