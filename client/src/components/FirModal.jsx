@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
 const FirModal = (props) => {
+  const { edit } = props;
   const [id, setId] = useState();
   const [description, setDescription] = useState();
   const [type, setType] = useState();
@@ -20,12 +21,37 @@ const FirModal = (props) => {
           type: type,
         }),
       });
-      const status = (await req).status;
+      const status = req.status;
       console.log(status);
       if (status === 200) {
         console.log('req success');
       } else {
         console.log('req uncess');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const req = await fetch(`api/fir/${props.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: props.id,
+          description: description,
+          type: type,
+        }),
+      });
+      const status = req.status;
+      console.log(status);
+      if (status === 200) {
+        console.log('edit success');
+      } else {
+        console.log('edit unsuccess');
       }
     } catch (err) {
       console.log(err);
@@ -55,6 +81,7 @@ const FirModal = (props) => {
               type="text"
               placeholder="ID"
               onChange={(e) => setId(e.target.value)}
+              value={edit ? props.id : id}
             />
           </FloatingLabel>
 
@@ -65,7 +92,7 @@ const FirModal = (props) => {
           >
             <Form.Control
               type="text"
-              placeholder="firstname lastname"
+              placeholder="description"
               onChange={(e) => setDescription(e.target.value)}
             />
           </FloatingLabel>
@@ -92,7 +119,7 @@ const FirModal = (props) => {
           type="submit"
           onClick={(e) => {
             props.onHide();
-            handleSubmit(e);
+            edit ? handleEdit(e) : handleSubmit(e);
           }}
         >
           Submit

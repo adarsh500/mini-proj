@@ -18,9 +18,17 @@ const FirTable = () => {
       });
   }, []);
 
-  const handleDelete = (id) => {};
+  const handleDelete = async (id) => {
+    const req = await fetch(`api/fir/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log(req);
+  };
 
-  const handleEdit = (id) => {};
+  const handleEdit = (id) => {
+    setModalShow(true);
+  };
 
   return (
     <>
@@ -36,29 +44,36 @@ const FirTable = () => {
         </thead>
         <tbody>
           {fir.map((f, index) => (
-            <tr key={index}>
-              <td>
-                <Link to={`/${f.id}`} key={f.id}>
-                  {f.id}
-                </Link>
-              </td>
-              <td>{f.description}</td>
-              <td>{f.type}</td>
-              <td>
-                <Button variant="danger" onClick={handleDelete(f.id)}>
-                  Delete
-                </Button>
-              </td>
-              <td>
-                <Button variant="secondary" onClick={handleEdit(f.id)}>
-                  Edit
-                </Button>
-              </td>
-            </tr>
+            <>
+              <tr key={index}>
+                <td>
+                  <Link to={`/${f.id}`} key={f.id}>
+                    {f.id}
+                  </Link>
+                </td>
+                <td>{f.description}</td>
+                <td>{f.type}</td>
+                <td>
+                  <Button variant="danger" onClick={() => handleDelete(f.id)}>
+                    Delete
+                  </Button>
+                </td>
+                <td>
+                  <Button variant="secondary" onClick={() => handleEdit(f.id)}>
+                    Edit
+                  </Button>
+                </td>
+              </tr>
+              <FirModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                edit
+                id={f.id}
+              />
+            </>
           ))}
         </tbody>
       </Table>
-      <FirModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
   );
 };

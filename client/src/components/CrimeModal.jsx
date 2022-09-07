@@ -3,14 +3,22 @@ import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
 const CrimeModal = (props) => {
-  const { id } = props;
-  const [name, setName] = useState('');
-  //   const [id, setId] = useState();
-  const [aadhar, setAadhar] = useState();
-  const [location, setLocation] = useState();
-  const [type, setType] = useState();
-  const [date, setDate] = useState();
-  const [address, setAddress] = useState();
+  const {
+    id,
+    edit,
+    name: editName,
+    location: editLocation,
+    address: editAddress,
+    adhaar: editAadhar,
+    type: editType,
+    date: editDate,
+  } = props;
+  const [name, setName] = useState(editName || '');
+  const [aadhar, setAadhar] = useState(editAadhar || '');
+  const [address, setAddress] = useState(editAddress || '');
+  const [location, setLocation] = useState(editLocation || '');
+  const [type, setType] = useState(editType || '');
+  const [date, setDate] = useState(editDate || '');
 
   const handleSubmit = async (e) => {
     console.log('wroking');
@@ -35,6 +43,34 @@ const CrimeModal = (props) => {
         console.log('req success');
       } else {
         console.log('req uncess');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    try {
+      const req = await fetch(`api/crime/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: id,
+          name: name,
+          location: location,
+          date: date,
+          adhaar: aadhar,
+          address: address,
+          type: type,
+        }),
+      });
+      const status = req.status;
+      console.log(status);
+      if (status === 200) {
+        console.log('edit success');
+      } else {
+        console.log('edit unsuccess');
       }
     } catch (err) {
       console.log(err);
@@ -72,6 +108,7 @@ const CrimeModal = (props) => {
               type="text"
               placeholder="firstname lastname"
               onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </FloatingLabel>
 
@@ -84,6 +121,7 @@ const CrimeModal = (props) => {
               type="text"
               placeholder="DD-MM-YYYY"
               onChange={(e) => setDate(e.target.value)}
+              value={date}
             />
           </FloatingLabel>
 
@@ -96,6 +134,7 @@ const CrimeModal = (props) => {
               type="text"
               placeholder="XXXX XXXX XXXX"
               onChange={(e) => setAadhar(e.target.value)}
+              value={aadhar}
             />
           </FloatingLabel>
 
@@ -108,6 +147,7 @@ const CrimeModal = (props) => {
               type="text"
               placeholder="Type"
               onChange={(e) => setType(e.target.value)}
+              value={type}
             />
           </FloatingLabel>
 
@@ -119,6 +159,7 @@ const CrimeModal = (props) => {
             <Form.Control
               type="text"
               placeholder="bangalore"
+              value={location}
               onChange={(e) => setLocation(e.target.value)}
             />
           </FloatingLabel>
@@ -131,6 +172,7 @@ const CrimeModal = (props) => {
             <Form.Control
               type="text"
               placeholder="Address"
+              value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
           </FloatingLabel>
@@ -145,7 +187,7 @@ const CrimeModal = (props) => {
           type="submit"
           onClick={(e) => {
             props.onHide();
-            handleSubmit(e);
+            edit ? handleEdit(e) : handleSubmit(e);
           }}
         >
           Submit

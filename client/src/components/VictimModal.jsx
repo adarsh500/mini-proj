@@ -3,12 +3,20 @@ import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
 const VictimModal = (props) => {
-  const { id } = props;
-  const [vid, setVid] = useState();
-  const [name, setName] = useState('');
-  const [aadhar, setAadhar] = useState();
-  const [email, setEmail] = useState();
-  const [address, setAddress] = useState();
+  const {
+    id,
+    edit,
+    name: editName,
+    email: editEmail,
+    address: editAddress,
+    adhaar: editAadhar,
+    vid: editVid,
+  } = props;
+  const [vid, setVid] = useState(editVid || '');
+  const [name, setName] = useState(editName || '');
+  const [aadhar, setAadhar] = useState(editAadhar || '');
+  const [address, setAddress] = useState(editAddress || '');
+  const [email, setEmail] = useState(editEmail || '');
 
   const handleSubmit = async (e) => {
     console.log('wroking');
@@ -32,6 +40,34 @@ const VictimModal = (props) => {
         console.log('req success');
       } else {
         console.log('req uncess');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const req = await fetch(`api/victim/${props.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: id,
+          vid: vid,
+          name: name,
+          email: email,
+          adhaar: aadhar,
+          address: address,
+        }),
+      });
+      const status = req.status;
+      console.log(status);
+      if (status === 200) {
+        console.log('edit success');
+      } else {
+        console.log('edit unsuccess');
       }
     } catch (err) {
       console.log(err);
@@ -65,6 +101,7 @@ const VictimModal = (props) => {
               type="text"
               placeholder=""
               onChange={(e) => setVid(e.target.value)}
+              value={vid}
             />
           </FloatingLabel>
 
@@ -77,6 +114,7 @@ const VictimModal = (props) => {
               type="text"
               placeholder="firstname lastname"
               onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </FloatingLabel>
 
@@ -89,6 +127,7 @@ const VictimModal = (props) => {
               type="text"
               placeholder="XXXX XXXX XXXX"
               onChange={(e) => setAadhar(e.target.value)}
+              value={aadhar}
             />
           </FloatingLabel>
 
@@ -101,6 +140,7 @@ const VictimModal = (props) => {
               type="email"
               placeholder="email@domain.com"
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </FloatingLabel>
 
@@ -113,6 +153,7 @@ const VictimModal = (props) => {
               type="text"
               placeholder="Address"
               onChange={(e) => setAddress(e.target.value)}
+              value={address}
             />
           </FloatingLabel>
         </Form>
@@ -126,7 +167,7 @@ const VictimModal = (props) => {
           type="submit"
           onClick={(e) => {
             props.onHide();
-            handleSubmit(e);
+            edit ? handleEdit(e) : handleSubmit(e);
           }}
         >
           Submit
