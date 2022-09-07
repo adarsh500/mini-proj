@@ -185,3 +185,111 @@ exports.findFirId = async (req, res) => {
     });
   }
 };
+
+exports.deleteFir =  async (req,res,next) => {
+  try {
+      await FirDB.findOneAndDelete({id: req.params.id})
+      res.status(200).json("fir has been deleted")
+      
+  } catch (err) {
+      next(err)
+  }
+}
+
+exports.deleteCrime =  async (req,res,next) => {
+  try {
+      await CrimeDB.findOneAndDelete({id: req.params.id})
+      res.status(200).json("Crime has been deleted")
+      
+  } catch (err) {
+      next(err)
+  }
+}
+
+exports.deleteCriminal =  async (req,res,next) => {
+  try {
+      await CriminalDB.findOneAndDelete({id: req.params.id})
+      res.status(200).json("Criminal has been deleted")
+      
+  } catch (err) {
+      next(err)
+  }
+}
+
+exports.deleteVictim =  async (req,res,next) => {
+  try {
+      await VictimDB.findOneAndDelete({id: req.params.id})
+      res.status(200).json("Victim has been deleted")
+      
+  } catch (err) {
+      next(err)
+  }
+}
+
+exports.updateFir = async (req, res) => {
+  //validate request
+  if (!req.body) {
+    res.status(400).send({ message: 'Content cannt be empty' });
+    return;
+  }
+
+  try {
+    
+    const updatedFir = await FirDB.findOneAndUpdate({id: req.params.id}, { $set: req.body }, {new: true});
+    res.status(200).send(updatedFir)
+  } catch (error) {
+    console.log(error)
+  }
+
+};
+
+exports.updateCrime = async (req, res) => {
+  //validate request
+  if (!req.body) {
+    res.status(400).send({ message: 'Content cannt be empty' });
+    return;
+  }
+
+  try {
+    
+    const updatedCrime = await CrimeDB.findOneAndUpdate({id: req.params.id}, { $set: req.body }, {new: true});
+    res.status(200).send(updatedCrime)
+  } catch (error) {
+    console.log(error)
+  }
+
+};
+
+exports.updateCriminal = async (req, res) => {
+  //validate request
+  if (!req.body) {
+    res.status(400).send({ message: 'Content cannt be empty' });
+    return;
+  }
+
+  try {
+    
+    const updatedCriminal = await CriminalDB.findOneAndUpdate({id: req.params.id}, { $set: req.body }, {new: true});
+    res.status(200).send(updatedCriminal)
+  } catch (error) {
+    console.log(error)
+  }
+
+};
+
+exports.updateVictim = async (req, res) => {
+  //validate request
+  if (!req.body) {
+    res.status(400).send({ message: 'Content cannt be empty' });
+    return;
+  }
+
+  try {
+    
+    const updatedVictim = await VictimDB.findOneAndUpdate({id: req.params.id}, { $set: req.body }, {new: true});
+    res.status(200).send(updatedVictim)
+  } catch (error) {
+    console.log(error)
+  }
+
+};
