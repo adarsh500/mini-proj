@@ -2,28 +2,31 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
-const CriminalModal = (props) => {
+const CrimeModal = (props) => {
   const { id } = props;
   const [name, setName] = useState('');
-  const [cid, setCid] = useState();
+  //   const [id, setId] = useState();
   const [aadhar, setAadhar] = useState();
-  const [email, setEmail] = useState();
+  const [location, setLocation] = useState();
+  const [type, setType] = useState();
+  const [date, setDate] = useState();
   const [address, setAddress] = useState();
 
   const handleSubmit = async (e) => {
     console.log('wroking');
     e.preventDefault();
     try {
-      const req = await fetch('api/criminal', {
+      const req = await fetch('api/crime', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: id,
-          cid: cid,
           name: name,
-          email: email,
+          location: location,
+          date: date,
           adhaar: aadhar,
           address: address,
+          type: type,
         }),
       });
       const status = (await req).status;
@@ -57,15 +60,7 @@ const CriminalModal = (props) => {
             label="Criminal ID"
             className="mb-3"
           >
-            <Form.Control type="text" placeholder="ID" value={id} readOnly />
-          </FloatingLabel>
-
-          <FloatingLabel controlId="floatingInput" label="CID" className="mb-3">
-            <Form.Control
-              type="text"
-              placeholder=""
-              onChange={(e) => setCid(e.target.value)}
-            />
+            <Form.Control type="text" placeholder="ID" value={id} />
           </FloatingLabel>
 
           <FloatingLabel
@@ -77,6 +72,18 @@ const CriminalModal = (props) => {
               type="text"
               placeholder="firstname lastname"
               onChange={(e) => setName(e.target.value)}
+            />
+          </FloatingLabel>
+
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Date"
+            className="mb-3"
+          >
+            <Form.Control
+              type="text"
+              placeholder="DD-MM-YYYY"
+              onChange={(e) => setDate(e.target.value)}
             />
           </FloatingLabel>
 
@@ -94,13 +101,25 @@ const CriminalModal = (props) => {
 
           <FloatingLabel
             controlId="floatingInput"
-            label="email"
+            label="type"
             className="mb-3"
           >
             <Form.Control
-              type="email"
-              placeholder="email@domain.com"
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              placeholder="Type"
+              onChange={(e) => setType(e.target.value)}
+            />
+          </FloatingLabel>
+
+          <FloatingLabel
+            controlId="floatingInput"
+            label="location"
+            className="mb-3"
+          >
+            <Form.Control
+              type="text"
+              placeholder="bangalore"
+              onChange={(e) => setLocation(e.target.value)}
             />
           </FloatingLabel>
 
@@ -136,4 +155,4 @@ const CriminalModal = (props) => {
   );
 };
 
-export default CriminalModal;
+export default CrimeModal;

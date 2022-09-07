@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
 import './App.css';
 
 function App() {
-  const navigate = useNavigate();
   const [modalShow, setModalShow] = useState(false);
 
   const logout = () => {
     fetch('/logout');
   };
-  const goHome = () => {
-    navigate('/');
-  };
-
-  useEffect(() => {
-    goHome();
-  }, []);
 
   return (
     <div className="App">

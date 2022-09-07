@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Table, Form, Modal } from 'react-bootstrap';
 
-const CriminalTable = (props) => {
-  console.log('this is props', props.criminal);
+const VictimTable = (props) => {
+  console.log('this is props', props.victim);
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
           <th>#</th>
-          <th>cid</th>
+          <th>vid</th>
           <th>Name</th>
           <th>Address</th>
           <th>Adhaar</th>
@@ -18,10 +18,10 @@ const CriminalTable = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props?.criminal?.map(({ id, cid, address, adhaar, name, email }) => (
-          <tr key={cid}>
+        {props?.victim?.map(({ id, vid, address, adhaar, name, email }) => (
+          <tr key={vid}>
             <td>{id}</td>
-            <td>{cid}</td>
+            <td>{vid}</td>
             <td>{name}</td>
             <td>{address}</td>
             <td>{adhaar}</td>
@@ -33,4 +33,4 @@ const CriminalTable = (props) => {
   );
 };
 
-export default CriminalTable;
+export default VictimTable;

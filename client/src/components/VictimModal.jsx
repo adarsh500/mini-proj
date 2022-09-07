@@ -2,10 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Form, Modal, FloatingLabel } from 'react-bootstrap';
 
-const CriminalModal = (props) => {
+const VictimModal = (props) => {
   const { id } = props;
+  const [vid, setVid] = useState();
   const [name, setName] = useState('');
-  const [cid, setCid] = useState();
   const [aadhar, setAadhar] = useState();
   const [email, setEmail] = useState();
   const [address, setAddress] = useState();
@@ -14,12 +14,12 @@ const CriminalModal = (props) => {
     console.log('wroking');
     e.preventDefault();
     try {
-      const req = await fetch('api/criminal', {
+      const req = await fetch('api/victim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: id,
-          cid: cid,
+          vid: vid,
           name: name,
           email: email,
           adhaar: aadhar,
@@ -54,23 +54,23 @@ const CriminalModal = (props) => {
         <Form onSubmit={handleSubmit}>
           <FloatingLabel
             controlId="floatingInput"
-            label="Criminal ID"
+            label="Victim ID"
             className="mb-3"
           >
             <Form.Control type="text" placeholder="ID" value={id} readOnly />
           </FloatingLabel>
 
-          <FloatingLabel controlId="floatingInput" label="CID" className="mb-3">
+          <FloatingLabel controlId="floatingInput" label="VID" className="mb-3">
             <Form.Control
               type="text"
               placeholder=""
-              onChange={(e) => setCid(e.target.value)}
+              onChange={(e) => setVid(e.target.value)}
             />
           </FloatingLabel>
 
           <FloatingLabel
             controlId="floatingInput"
-            label="Criminal Name"
+            label="Victim Name"
             className="mb-3"
           >
             <Form.Control
@@ -82,7 +82,7 @@ const CriminalModal = (props) => {
 
           <FloatingLabel
             controlId="floatingInput"
-            label="Aadhar Number"
+            label="Victim Aadhar Number"
             className="mb-3"
           >
             <Form.Control
@@ -136,4 +136,4 @@ const CriminalModal = (props) => {
   );
 };
 
-export default CriminalModal;
+export default VictimModal;

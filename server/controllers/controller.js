@@ -6,7 +6,6 @@ var VictimDB = require('../models/victim');
 //create new criminal record
 exports.createcriminal = (req, res) => {
   //validate request
-
   if (!req.body) {
     res.status(400).send({ message: 'Content cannt be empty' });
     return;
@@ -165,4 +164,24 @@ exports.findAllVictim = (req, res) => {
         message: err.message || 'Error occured while retrieving fir data',
       });
     });
+};
+
+//get fir with fir id
+exports.findFirId = async (req, res) => {
+  try {
+    const fir = await FirDB.find({ id: req.params.id });
+    const crime = await CrimeDB.find({ id: req.params.id });
+    const criminal = await CriminalDB.find({ id: req.params.id });
+    const vitcim = await VictimDB.find({ id: req.params.id });
+    res.status(201).json({
+      fir: fir,
+      crime: crime,
+      criminal: criminal,
+      victim: vitcim,
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || 'Error occured while retrieving fir id data',
+    });
+  }
 };
