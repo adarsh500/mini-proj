@@ -186,43 +186,46 @@ exports.findFirId = async (req, res) => {
   }
 };
 
-exports.deleteFir =  async (req,res,next) => {
+exports.deleteFir =  async (req,res) => {
   try {
       await FirDB.findOneAndDelete({id: req.params.id})
+      await CrimeDB.findOneAndDelete({id: req.params.id})
+      await CriminalDB.findOneAndDelete({id: req.params.id})
+      await VictimDB.findOneAndDelete({id: req.params.id})
       res.status(200).json("fir has been deleted")
       
   } catch (err) {
-      next(err)
+    console.log(err)
   }
 }
 
-exports.deleteCrime =  async (req,res,next) => {
+exports.deleteCrime =  async (req,res) => {
   try {
       await CrimeDB.findOneAndDelete({id: req.params.id})
       res.status(200).json("Crime has been deleted")
       
   } catch (err) {
-      next(err)
+    console.log(err)
   }
 }
 
-exports.deleteCriminal =  async (req,res,next) => {
+exports.deleteCriminal =  async (req,res) => {
   try {
       await CriminalDB.findOneAndDelete({id: req.params.id})
       res.status(200).json("Criminal has been deleted")
       
   } catch (err) {
-      next(err)
+    console.log(err)
   }
 }
 
-exports.deleteVictim =  async (req,res,next) => {
+exports.deleteVictim =  async (req,res) => {
   try {
       await VictimDB.findOneAndDelete({id: req.params.id})
       res.status(200).json("Victim has been deleted")
       
   } catch (err) {
-      next(err)
+    console.log(err)
   }
 }
 
